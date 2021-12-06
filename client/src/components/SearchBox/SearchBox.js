@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import useSearchUsersDebounced from '../../hooks/useSearchUsersDebounced';
 
@@ -17,7 +17,7 @@ const SearchBox = ({ style, setResult, onClick }) => {
     fetching,
     setFetching,
   } = useSearchUsersDebounced();
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     if (result.length > 0 && setResult) {

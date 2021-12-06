@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, Suspense, lazy } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useTransition } from 'react-spring';
 
@@ -10,8 +10,8 @@ import { fetchNotificationsStart } from '../../redux/notification/notificationAc
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
-import Alert from '../../components/Alert/Alert';
-import Footer from '../../components/Footer/Footer';
+import Alert from '../Alert/Alert';
+import Footer from '../Footer/Footer';
 import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
@@ -28,7 +28,7 @@ export function UnconnectedApp({
   const token = localStorage.getItem('token');
   const {
     location: { pathname },
-  } = useHistory();
+  } = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -70,11 +70,11 @@ export function UnconnectedApp({
               </Alert>
             )
         )}
-        <Switch>
+        <Routes>
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <ProtectedRoute exact path="/" component={HomePage} />
-        </Switch>
+        </Routes>
         {pathname !== '/' && <Footer />}
         {pathname !== '/login' &&
           pathname !== '/signup' &&
