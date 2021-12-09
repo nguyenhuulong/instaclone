@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from 'react';
 import { formatDateDistance } from '../../../utils/timeUtils';
 import { Link } from 'react-router-dom';
-import Linkify from 'linkifyjs/react';
+import Linkify from 'linkify-react';
 import * as linkify from 'linkifyjs';
 import mention from 'linkifyjs/plugins/mention';
 

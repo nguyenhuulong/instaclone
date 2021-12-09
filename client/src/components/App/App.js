@@ -17,6 +17,10 @@ import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 const SignUpPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const ActivityPage = lazy(() => import('../../pages/ActivityPage/ActivityPage'));
+const ProfilePage = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
+const PostPage = lazy(() => import('../../pages/PostPage/PostPage'));
+const NewPostPage = lazy(() => import('../../pages/NewPostPage/NewPostPage'));
 
 export function UnconnectedApp({
   signInStart,
@@ -74,6 +78,10 @@ export function UnconnectedApp({
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <ProtectedRoute exact path="/" component={HomePage} />
+          <ProtectedRoute path="/activity" component={ActivityPage} />
+          <ProtectedRoute path="/new" component={NewPostPage} />
+          <Route exact path="/:username" component={ProfilePage} />
+          <Route path="/post/:postId" component={PostPage} />
         </Routes>
         {pathname !== '/' && <Footer />}
         {pathname !== '/login' &&
