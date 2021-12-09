@@ -10,8 +10,10 @@ import { fetchNotificationsStart } from '../../redux/notification/notificationAc
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
-import Alert from '../Alert/Alert';
-import Footer from '../Footer/Footer';
+import Modal from '../../components/Modal/Modal';
+import Alert from '../../components/Alert/Alert';
+import Footer from '../../components/Footer/Footer';
+import MobileNav from '../../components/MobileNav/MobileNav';
 import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
@@ -21,9 +23,14 @@ const ActivityPage = lazy(() => import('../../pages/ActivityPage/ActivityPage'))
 const ProfilePage = lazy(() => import('../../pages/ProfilePage/ProfilePage'));
 const PostPage = lazy(() => import('../../pages/PostPage/PostPage'));
 const NewPostPage = lazy(() => import('../../pages/NewPostPage/NewPostPage'));
+const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
+const ConfirmationPage = lazy(() => import('../../pages/ConfirmationPage/ConfirmationPage'));
+const SettingsPage = lazy(() => import('../../pages/SettingsPage/SettingsPage'));
+const ExplorePage = lazy(() => import('../../pages/ExplorePage/ExplorePage'));
 
 export function UnconnectedApp({
   signInStart,
+  modal,
   alert,
   currentUser,
   connectSocket,
@@ -41,6 +48,18 @@ export function UnconnectedApp({
       fetchNotificationsStart(token);
     }
   }, [signInStart, connectSocket, fetchNotificationsStart, token]);
+
+  const renderModals = () => {
+    if (modal.modals.length > 0) {
+      // Disable scrolling on the body while a modal is active
+      document.querySelector('body').setAttribute('style', 'overflow: hidden;');
+      return modal.modals.map((modal, idx) => (
+        <Modal key={idx} component={modal.component} {...modal.props} />
+      ));
+    } else {
+      document.querySelector('body').setAttribute('style', '');
+    }
+  };
 
   const transitions = useTransition(alert.showAlert, null, {
     from: {
@@ -66,6 +85,7 @@ export function UnconnectedApp({
     return (
       <Fragment>
         {pathname !== '/login' && pathname !== '/signup' && <Header />}
+        {renderModals()}
         {transitions.map(
           ({ item, props, key }) =>
             item && (
@@ -75,19 +95,23 @@ export function UnconnectedApp({
             )
         )}
         <Routes>
-          <Route path="/login" component={LoginPage} />
+        <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <ProtectedRoute exact path="/" component={HomePage} />
+          <ProtectedRoute path="/settings" component={SettingsPage} />
           <ProtectedRoute path="/activity" component={ActivityPage} />
           <ProtectedRoute path="/new" component={NewPostPage} />
+          <ProtectedRoute path="/explore" component={ExplorePage} />
           <Route exact path="/:username" component={ProfilePage} />
           <Route path="/post/:postId" component={PostPage} />
+          <ProtectedRoute path="/confirm/:token" component={ConfirmationPage} />
+          <Route component={NotFoundPage} />
         </Routes>
         {pathname !== '/' && <Footer />}
         {pathname !== '/login' &&
           pathname !== '/signup' &&
           pathname !== '/new' &&
-          currentUser}
+          currentUser && <MobileNav currentUser={currentUser} />}
       </Fragment>
     );
   };
