@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Avatar from '../../Avatar/Avatar';
 
 const SuggestionCard = ({ avatar, username, fullName, posts, children }) => {
-  const history = useNavigate();
+  const history = useHistory();
 
   return (
     <div className="suggestion-card">

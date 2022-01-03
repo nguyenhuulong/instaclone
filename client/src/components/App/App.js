@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, Suspense, lazy } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useTransition } from 'react-spring';
 
@@ -39,7 +39,7 @@ export function UnconnectedApp({
   const token = localStorage.getItem('token');
   const {
     location: { pathname },
-  } = useNavigate();
+  } = useHistory();
 
   useEffect(() => {
     if (token) {
@@ -94,8 +94,8 @@ export function UnconnectedApp({
               </Alert>
             )
         )}
-        <Routes>
-        <Route path="/login" component={LoginPage} />
+        <Switch>
+          <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <ProtectedRoute exact path="/" component={HomePage} />
           <ProtectedRoute path="/settings" component={SettingsPage} />
@@ -106,7 +106,7 @@ export function UnconnectedApp({
           <Route path="/post/:postId" component={PostPage} />
           <ProtectedRoute path="/confirm/:token" component={ConfirmationPage} />
           <Route component={NotFoundPage} />
-        </Routes>
+        </Switch>
         {pathname !== '/' && <Footer />}
         {pathname !== '/login' &&
           pathname !== '/signup' &&

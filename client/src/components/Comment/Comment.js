@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { formatDateDistance } from '../../utils/timeUtils';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import Linkify from 'linkify-react';
+import Linkify from 'linkifyjs/react';
 import * as linkify from 'linkifyjs';
 import mention from 'linkifyjs/plugins/mention';
 import hashtag from 'linkifyjs/plugins/hashtag';

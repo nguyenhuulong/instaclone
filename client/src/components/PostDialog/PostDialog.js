@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import classNames from 'classnames';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { selectToken, selectCurrentUser } from '../../redux/user/userSelectors';
 
@@ -38,7 +38,7 @@ const PostDialog = ({
 }) => {
   const commentsRef = useRef();
   const [state, dispatch] = useReducer(postDialogReducer, INITIAL_STATE);
-  const history = useNavigate();
+  const history = useHistory();
 
   const fetching = loading !== undefined ? loading : state.fetching;
 

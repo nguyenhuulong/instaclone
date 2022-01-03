@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../redux/user/userSelectors';
 
 import SignUpCard from '../../components/SignUpCard/SignUpCard.js';
 
 const SignUpPage = ({ currentUser }) => {
-  const history = useNavigate();
+  const history = useHistory();
   useEffect(() => {
     if (currentUser) history.push('/');
   }, [currentUser, history]);

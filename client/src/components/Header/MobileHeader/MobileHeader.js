@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../../redux/user/userSelectors';
 
@@ -10,7 +10,7 @@ import Button from '../../Button/Button';
 import TextButton from '../../Button/TextButton/TextButton';
 
 const MobileHeader = ({ children, backArrow, style, show, currentUser }) => {
-  const history = useNavigate();
+  const history = useHistory();
   return (
     <header
       style={{ ...style, display: `${show && 'grid'}` }}

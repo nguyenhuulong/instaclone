@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { showModal, hideModal } from '../../../redux/modal/modalActions';
@@ -9,7 +9,7 @@ import Icon from '../../Icon/Icon';
 const NewPostButton = ({ showModal, hideModal, plusIcon, children, style }) => {
   const [file, setFile] = useState(undefined);
   const fileInputRef = useRef();
-  const history = useNavigate();
+  const history = useHistory();
 
   useEffect(() => {
     if (file) {

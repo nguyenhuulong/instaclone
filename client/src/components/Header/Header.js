@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../redux/user/userSelectors';
 
@@ -20,7 +20,7 @@ const Header = memo(({ currentUser }) => {
   const [shouldMinimizeHeader, setShouldMinimizeHeader] = useState(false);
   const {
     location: { pathname },
-  } = useNavigate();
+  } = useHistory();
 
   // Shrink header height and remove logo on scroll
   useScrollPositionThrottled(({ currentScrollPosition }) => {

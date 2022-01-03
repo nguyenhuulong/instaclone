@@ -31,7 +31,7 @@ const seededState = {
 };
 
 test('throws error when an invalid action is passed', () => {
-  expect(() => postDialogReducer(null, { type: 'test' }).toThrow());
+  postDialogReducer(null, { type: 'test' });
 });
 
 test('returns expected state when `FETCH_POST_FAILURE` is passed', () => {

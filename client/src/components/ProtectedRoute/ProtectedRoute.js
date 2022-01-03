@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Route, Navigate } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import { selectToken } from '../../redux/user/userSelectors';
 
 const ProtectedRoute = ({ token, children, ...props }) => {
   return (
-    <Route {...props}>{token ? children : <Navigate to="/login" />}</Route>
+    <Route {...props}>{token ? children : <Redirect to="/login" />}</Route>
   );
 };
 
